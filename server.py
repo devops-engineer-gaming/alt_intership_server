@@ -36,15 +36,15 @@ def get_todos():
             return [todo.Todo for todo in todos]
 
 @app.post("/todos/")
-def create_hero(todo: models.Todo):
+def create_todo(todo: models.Todo):
     with Session(engine) as session:
         session.add(todo)
         session.commit()
         session.refresh(todo)
         return todo
 
-@app.post("/todos/{todo_id}")
-def update_hero(todo_id: int, todo: models.TodoUpdate):
+@app.patch("/todos/{todo_id}")
+def update_todo(todo_id: int, todo: models.TodoUpdate):
     with Session(engine) as session:
         db_todo = session.get(models.Todo, todo_id)
         if not db_todo:
@@ -59,7 +59,7 @@ def update_hero(todo_id: int, todo: models.TodoUpdate):
 
 
 @app.delete("/todos/{todo_id}")
-def delete_hero(todo_id: int):
+def delete_todo(todo_id: int):
     with Session(engine) as session:
         todo = session.get(models.Todo, todo_id)
         if not todo:
