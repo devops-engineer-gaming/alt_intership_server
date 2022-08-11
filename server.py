@@ -5,31 +5,18 @@ from sqlmodel import create_engine, SQLModel
 from sqlmodel import Session
 from sqlalchemy import select
 from fastapi.middleware.cors import CORSMiddleware
-import models
+import models, settings
 
-DATABASE_URL = "postgresql://postgres_lyagushka:meta_pass@localHost:5432/postgres_lyagushka"
-engine = create_engine(DATABASE_URL)
+engine = create_engine(settings.DATABASE_URL)
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
-
-
-## App logic ##
-
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-]
-
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
