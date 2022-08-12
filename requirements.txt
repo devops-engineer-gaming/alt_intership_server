@@ -1,0 +1,3 @@
+SQLAlchemy
+sqlmodel
+fastapi
