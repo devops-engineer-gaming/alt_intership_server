@@ -1,3 +1,4 @@
 SQLAlchemy
 sqlmodel
 fastapi
+"uvicorn[standard]"
