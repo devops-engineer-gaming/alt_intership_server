@@ -3,14 +3,29 @@ from fastapi import FastAPI, HTTPException
 from typing import List
 from sqlmodel import create_engine, SQLModel
 from sqlmodel import Session
-from sqlalchemy import select
+from sqlalchemy import select, text
 from fastapi.middleware.cors import CORSMiddleware
 import models, settings
 
 engine = create_engine(settings.DATABASE_URL)
 
 def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+   with Session(engine) as session:
+      statement = text("""
+      CREATE TABLE IF NOT EXISTS public.todo
+(
+    title character varying COLLATE pg_catalog."default",
+    description character varying COLLATE pg_catalog."default",
+    id serial primary key NOT NULL 
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.todo
+    OWNER to postgres_lyagushka;""")
+
+      session.execute(statement)
+      session.commit()
 
 app = FastAPI()
 
