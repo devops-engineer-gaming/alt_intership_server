@@ -1,4 +1,5 @@
 SQLAlchemy
 sqlmodel
 fastapi
-"uvicorn[standard]"
+uvicorn[standard]
+psycopg2
