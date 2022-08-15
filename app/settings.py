@@ -3,8 +3,8 @@ DATABASE_URL = "postgresql://postgres_lyagushka:meta_pass@postgres:5432/postgres
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
-    "http://localhost",
+    "http://localhost:8000",
     "http://todo.com",
-    "http://127.0.0.1:3000",
+    "http://frontend_container:3000",
     "http://localhost:3000",
 ]

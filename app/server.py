@@ -44,13 +44,13 @@ def on_startup():
 
 ## Routing ##
 
-@app.get('/todos', response_model = List)
+@app.get('/api/todos', response_model = List)
 def get_todos():
         with Session(engine) as session:
             todos = session.exec(select(models.Todo)).all()
             return [todo.Todo for todo in todos]
 
-@app.post("/todos/")
+@app.post("/api/todos/")
 def create_todo(todo: models.Todo):
     with Session(engine) as session:
         session.add(todo)
@@ -58,7 +58,7 @@ def create_todo(todo: models.Todo):
         session.refresh(todo)
         return todo
 
-@app.patch("/todos/{todo_id}")
+@app.patch("/api/todos/{todo_id}")
 def update_todo(todo_id: int, todo: models.TodoUpdate):
     with Session(engine) as session:
         db_todo = session.get(models.Todo, todo_id)
@@ -73,7 +73,7 @@ def update_todo(todo_id: int, todo: models.TodoUpdate):
         return db_todo
 
 
-@app.delete("/todos/{todo_id}")
+@app.delete("/api/todos/{todo_id}")
 def delete_todo(todo_id: int):
     with Session(engine) as session:
         todo = session.get(models.Todo, todo_id)
