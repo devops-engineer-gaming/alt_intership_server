@@ -5,7 +5,7 @@ from sqlmodel import create_engine, SQLModel
 from sqlmodel import Session
 from sqlalchemy import select, text
 from fastapi.middleware.cors import CORSMiddleware
-import models, settings
+from . import models, settings
 
 engine = create_engine(settings.DATABASE_URL)
 
