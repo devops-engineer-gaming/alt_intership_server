@@ -3,3 +3,4 @@ sqlmodel
 fastapi
 uvicorn[standard]
 psycopg2
+alembic

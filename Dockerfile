@@ -8,13 +8,21 @@ EXPOSE 8000
 
 COPY ./requirements.txt /code/requirements.txt
 
+COPY ./app/alembic.ini /code/alembic.ini
+
+COPY ./app/alembic /code/alembic
+
 RUN pip install --upgrade pip
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./app /code/app
 
-CMD ["uvicorn", "app.server:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
+RUN rm -r /code/app/alembic
+
+RUN rm -r /code/app/alembic.ini
+
+CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
 
 # If running behind a proxy like Nginx or Traefik add --proxy-headers
 # CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]

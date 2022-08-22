@@ -5,10 +5,12 @@ from sqlmodel import create_engine, SQLModel
 from sqlmodel import Session
 from sqlalchemy import select, text
 from fastapi.middleware.cors import CORSMiddleware
-from . import models, settings
+import models, settings
+import  subprocess
 
 engine = create_engine(settings.DATABASE_URL)
 
+'''
 def create_db_and_tables():
    with Session(engine) as session:
       statement = text("""
@@ -23,9 +25,14 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.todo
     OWNER to postgres_lyagushka;""")
-
       session.execute(statement)
       session.commit()
+'''
+
+def create_db_and_tables():
+    subprocess.run(["alembic","upgrade","47de46f187a3"])
+    with Session(engine) as session:
+        session.commit()
 
 app = FastAPI()
 
