@@ -1,4 +1,4 @@
-DATABASE_URL = "postgresql://postgres_lyagushka:meta_pass@postgres:5432/postgres_lyagushka"
+DATABASE_URL = "postgresql://postgres_lyagushka:meta_pass@localhost:5432/postgres_lyagushka"
 
 origins = [
     "http://localhost.tiangolo.com",
