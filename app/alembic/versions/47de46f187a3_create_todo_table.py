@@ -20,7 +20,7 @@ def upgrade() -> None:
     conn = op.get_bind()
     conn.execute(
         text("""
-      CREATE TABLE IF NOT EXISTS public.todo
+      CREATE TABLE IF NOT EXISTS public.todos
 (
     title character varying COLLATE pg_catalog."default",
     description character varying COLLATE pg_catalog."default",
@@ -29,8 +29,8 @@ def upgrade() -> None:
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.todo
-    OWNER to postgres_lyagushka;""")
+ALTER TABLE IF EXISTS public.todos
+    OWNER to todoer;""")
     )
 
 
@@ -38,6 +38,6 @@ def downgrade() -> None:
     conn = op.get_bind()
     conn.execute(text(
         """
-        DROP TABLE public.todo
+        DROP TABLE public.todos
         """
     ))

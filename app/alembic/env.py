@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-import os
+import os, base64
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -29,7 +29,7 @@ DB_HOST = os.environ["DB_HOST"]
 
 DB_USER = os.environ["DB_USER"]
 
-DB_PASS = os.environ["DB_PASS"]
+DB_PASS = os.environ['DB_PASS']
 
 DB_NAME = os.environ["DB_NAME"]
 
