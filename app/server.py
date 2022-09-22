@@ -55,21 +55,21 @@ def on_startup():
 @app.get('/api/todos', response_model = List)
 def get_todos():
         with Session(engine) as session:
-            todos = session.exec(select(models.Todo)).all()
-            return [todo.Todo for todo in todos]
+            todos = session.exec(select(models.Todos)).all()
+            return [todo.Todos for todo in todos]
 
 @app.post("/api/todos/")
-def create_todo(todo: models.Todo):
+def create_todo(todos: models.Todos):
     with Session(engine) as session:
-        session.add(todo)
+        session.add(todos)
         session.commit()
-        session.refresh(todo)
-        return todo
+        session.refresh(todos)
+        return todos
 
 @app.patch("/api/todos/{todo_id}")
-def update_todo(todo_id: int, todo: models.TodoUpdate):
+def update_todo(todo_id: int, todo: models.TodosUpdate):
     with Session(engine) as session:
-        db_todo = session.get(models.Todo, todo_id)
+        db_todo = session.get(models.Todos, todo_id)
         if not db_todo:
             raise HTTPException(status_code=404, detail="Todo not found")
         todo_data = todo.dict(exclude_unset=True)
@@ -84,7 +84,7 @@ def update_todo(todo_id: int, todo: models.TodoUpdate):
 @app.delete("/api/todos/{todo_id}")
 def delete_todo(todo_id: int):
     with Session(engine) as session:
-        todo = session.get(models.Todo, todo_id)
+        todo = session.get(models.Todos, todo_id)
         if not todo:
             raise HTTPException(status_code=404, detail="Todo not found")
         session.delete(todo)
